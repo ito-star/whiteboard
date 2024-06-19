@@ -1,0 +1,104 @@
+rules_version = '2';
+service firebase.storage {
+  function getRoleInfo() {
+    return {
+      "anonymous": {
+        "maxBoards": 0,
+        "maxStorage": 0,
+      },
+      "free": {
+        "maxBoards": 5,
+        // 1 GB
+        "maxStorage": 1073741824,
+      },
+      "basic": {
+        "maxBoards": 10,
+        // 5 GB
+        "maxStorage": 5368709120,
+      },
+      "premium": {
+        "maxBoards": 50,
+        // 10 GB
+        "maxStorage": 10737418240,
+      },
+      "premium-plus": {
+        "maxBoards": 100,
+        // 20 GB
+        "maxStorage": 21474836480,
+      },
+      "special": {
+        "maxBoards": -1,
+        "maxStorage": -1,
+      }
+    }
+  }
+
+  function getPaidRoles() {
+  	return ["basic", "premium", "premium-plus"];
+  }
+
+  function hasAuth(request) {
+  	return request.auth != null;
+  }
+
+  function isAnonymous(request) {
+  	return !hasAuth(request) || request.auth.token.firebase.sign_in_provider == 'anonymous';
+  }
+
+  function isPaid(request) {
+  	let paidRoles = getPaidRoles();
+
+  	return hasAuth(request) && "stripeRole" in request.auth.token && request.auth.token.stripeRole in paidRoles;
+  }
+
+  function getPaidRole(request) {
+  	return request.auth.token.stripeRole;
+  }
+
+  function hasPaidRole(request, role) {
+    return isPaid(request) && (getPaidRole(request) == role);
+  }
+
+  function isSpecial(request) {
+  	return hasAuth(request) && "isSpecial" in request.auth.token && request.auth.token.isSpecial;
+  }
+
+  function isFree(request) {
+  	return !isAnonymous(request) && !isPaid(request) && !isSpecial(request);
+  }
+
+  function hasStorage(role) {
+  	let roles = getRoleInfo();
+
+  	return (role in roles) && roles[role].maxStorage != 0;
+  }
+
+  function hasAnonymousStorage(request) {
+  	return hasAuth(request) && isAnonymous(request);
+  }
+
+  function canUpload(request) {
+    return (isSpecial(request) && hasStorage("special"))
+        || (isPaid(request) && hasStorage(getPaidRole(request)))
+        || (isFree(request) && hasStorage("free"))
+        || hasAnonymousStorage(request);
+  }
+
+  function matchWbid(request, userWbid) {
+    return hasAuth(request) && "email" in request.auth.token && request.auth.token.email.split("\\.").join("<>") == userWbid;
+  }
+
+  match /b/{bucket}/o {
+    match /users/{userWbid}/brand_image.png {
+      allow read: if hasAuth(request);
+      allow write: if canUpload(request)
+        && matchWbid(request, userWbid)
+        && (isSpecial(request) || hasPaidRole(request, "premium-plus"));
+    }
+
+    match /whiteboards/{boardId}/{blockId}/{allPaths=**} {
+    	allow read: if hasAuth(request);
+      allow write: if canUpload(request);
+    }
+  }
+}

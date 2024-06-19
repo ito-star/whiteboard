@@ -1,0 +1,19 @@
+[
+  {
+    "origin": [
+      "http://localhost",
+      "http://localhost:3000",
+      "http://localhost:5000",
+      "https://armspaces.web.app",
+      "https://armspaces.firebaseapp.com",
+      "https://whatboard.io",
+      "https://whatboard.app",
+      "https://whatboard-dev.web.app",
+      "https://whatboard-dev.firebaseapp.com",
+      "https://dev.whatboard.io",
+      "https://dev.whatboard.app"
+    ],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]

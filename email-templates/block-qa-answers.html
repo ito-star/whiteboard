@@ -1,0 +1,92 @@
+<html>
+  <head> </head>
+  <body>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+      }
+    </style>
+
+    <div style="background-color: #efefef">
+      <br /><br />
+      <div
+        style="
+          margin-left: 10%;
+          margin-right: 10%;
+          padding: 1em;
+          background-color: white;
+          border-radius: 4px;
+          color: #2d2d2d;
+          font-size: 12px;
+        "
+      >
+        <p style="font-size: 14px">Hello {{display_name}}</p>
+        <div>
+          <h1 style="font-size: 16px">
+            A response has been made to your Q &amp; A Block "{{block_title}}"
+            in Board "{{board_title}}" on {{whatboard_date}}:
+          </h1>
+
+          {{#each qa_data}}
+          <dl>
+            <dt>{{this.question}}</dt>
+            <dd>{{this.answer}}</dd>
+          </dl>
+          {{/each}}
+
+          <br />
+
+          <br />
+
+          <center>
+            <a
+              href="{{board_url}}"
+              style="
+                padding-top: 2px;
+                padding-left: 2px;
+                color: white;
+                padding: 10px 16px 9px 16px;
+                border-radius: 4px;
+                background-color: #2c387e;
+                text-decoration: none;
+              "
+              target="_blank"
+              >Open Board</a
+            >
+          </center>
+
+          <br />
+        </div>
+      </div>
+      <br />
+      <div style="margin-left: 10%; margin-right: 10%; font-size: 14px">
+        <p>Regards,</p>
+
+        <img
+          src="https://whatboard.app/logo30.png"
+          alt=""
+          width="30"
+          height="30"
+          style="
+            width: 30px;
+            height: 30px;
+            float: right;
+            margin-right: 20px;
+            padding-bottom: 20px;
+          "
+          class="CToWUd"
+        />
+        <p>
+          The Whatboard Team<br />
+          <a
+            href="https://whatboard.app"
+            style="padding-top: 2px; padding-left: 2px; color: #2c387e"
+            target="_blank"
+            >whatboard.app</a
+          ><br />
+        </p>
+      </div>
+      <div><br /><br /></div>
+    </div>
+  </body>
+</html>

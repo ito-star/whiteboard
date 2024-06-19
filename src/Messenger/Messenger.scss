@@ -1,0 +1,57 @@
+.messenger-wrapper {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  width: 100%;
+  padding: 10px 0 0 8px;
+  border-top: 1px solid #e5e5e5;
+
+  justify-content: space-between;
+
+  &-input {
+    border: none;
+    width: 100%;
+    font-family: "Lato", "Helvetica", "Arial", sans-serif;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &-sendIcon {
+    color: #333333;
+
+    &_disabled {
+      color: #d6d6d6;
+    }
+  }
+}
+
+.message-container {
+  &.is-new {
+    padding-top: 15px;
+    .new-badge-wrapper {
+      margin-top: -15px;
+      margin-bottom: 6px;
+      position: relative;
+      .new-badge {
+        background-color: #f50057;
+        color: white;
+        width: fit-content;
+        font-size: 10px;
+        padding: 0 4px;
+        border-top-right-radius: 7px;
+        border-bottom-right-radius: 7px;
+        &::after {
+          content: "";
+          height: 1px;
+          width: 100%;
+          background-color: #f50057;
+          top: 50%;
+          transform: translateY(-50%);
+          position: absolute;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+.button-option-panel {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+
+  .container-title {
+    padding: 10px;
+    border-bottom: 1px solid lightgray;
+    color: gray;
+    font-size: 14px;
+  }
+
+  .button-types-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    .button-types {
+      display: flex;
+      flex-direction: column;
+
+      padding: 10px;
+      max-height: 300px;
+      min-width: 260px;
+      overflow-y: auto;
+
+      .button-container {
+        display: flex;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 5px;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+        &.selected {
+          border: 2px solid gray;
+        }
+      }
+    }
+  }
+  .button-options-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    .button-options {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      min-width: 260px;
+      .MuiTextField-root {
+        margin-bottom: 20px;
+      }
+      .color-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        .color-selector-container {
+          display: flex;
+          flex-direction: column;
+          .color-selector-title {
+            color: gray;
+            font-size: 12px;
+          }
+          .color-selector {
+            width: 100px;
+            height: 30px;
+            border: 1px solid gray;
+            border-radius: 1px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

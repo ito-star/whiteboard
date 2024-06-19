@@ -1,0 +1,16 @@
+.custom-switch {
+  margin: 0 !important;
+  padding-left: 10px;
+  flex-direction: column;
+  .MuiFormControlLabel-label {
+    font-size: 10px;
+  }
+}
+
+.alt-button {
+  background-color: #ffc106 !important;
+
+  &:hover {
+    background-color: #ffc106 !important;
+  }
+}

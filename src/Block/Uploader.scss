@@ -1,0 +1,30 @@
+.block-uploader {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .block-uploader-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .block-uploader-progress-bar,
+    .block-uploader-progress-error {
+      width: 130px;
+      height: 130px;
+    }
+
+    .block-uploader-progress-label {
+      font-size: 2.5rem;
+    }
+
+    .block-uploader-progress-error {
+      .MuiSvgIcon-root {
+        width: 130px;
+        height: 130px;
+      }
+    }
+  }
+}

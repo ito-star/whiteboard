@@ -1,0 +1,29 @@
+@import "../theme/_theme.scss";
+
+.prices-body {
+  padding-top: 140px;
+  padding-bottom: 50px;
+}
+
+.prices-body {
+  text-align: center;
+
+  &--switch {
+    justify-content: center;
+  }
+
+  &--annual-label {
+    color: #2c387e;
+  }
+}
+
+@media (max-width: 768px) {
+  .margin-middle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .big-header {
+    margin-right: 0.25em !important;
+  }
+}

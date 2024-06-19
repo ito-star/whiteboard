@@ -1,0 +1,92 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb",
+    "plugin:jsx-a11y/recommended",
+    "eslint:recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["jsx-a11y", "prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "camelcase": [
+      "error",
+      {
+        "allow": [
+          "board_id",
+          "created_by",
+          "video_id",
+          "rss_url",
+          "sheet_url",
+          "iframe_url",
+          "powerpoint_url",
+          "pdf_path",
+          "image_path",
+          "header_title",
+          "sender_id",
+          "display_name",
+          "board_members",
+          "board_name",
+          "board_header_color",
+          "date_created",
+          "block_id",
+          "chat_id",
+          "unique_url",
+          "friendly_url",
+          "user_id",
+          "qa_data",
+          "view_logs",
+          "block_title"
+        ]
+      }
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "assert": "either",
+        "depth": 3
+      }
+    ],
+    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "test/**",
+          "tests/**",
+          "spec/**",
+          "**/__tests__/**",
+          "**/__mocks__/**",
+          "test.{js,jsx}",
+          "test-*.{js,jsx}",
+          "**/*{.,_}{test,spec}.{js,jsx}",
+          "**/jest.config.js",
+          "**/jest.setup.js",
+          "**/vue.config.js",
+          "**/webpack.config.js",
+          "**/webpack.config.*.js",
+          "**/rollup.config.js",
+          "**/rollup.config.*.js",
+          "**/gulpfile.js",
+          "**/gulpfile.*.js",
+          "**/Gruntfile{,.js}",
+          "**/protractor.conf.js",
+          "**/protractor.conf.*.js",
+          "**/karma.conf.js",
+          "src/setupTests.js",
+          "src/setupProxy.js"
+        ],
+        "optionalDependencies": false
+      }
+    ],
+    "react/sort-comp": "off"
+  }
+}

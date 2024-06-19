@@ -1,0 +1,394 @@
+@import "../theme/_theme.scss";
+
+.hidden {
+  display: none;
+}
+
+.pin-button {
+  position: absolute;
+  font-size: 14px;
+  bottom: 4px;
+  left: 0px;
+  padding-left: 0 !important;
+  color: #2d2d2d;
+}
+
+.switch {
+  position: fixed;
+  z-index: 1000;
+  right: 80px;
+  top: 6px;
+}
+
+.switch span span {
+  color: #2c387e;
+}
+
+.create-button {
+  position: absolute;
+  transform: scale(0.8);
+  border-radius: 50%;
+  z-index: 100;
+  top: -4px;
+  padding-left: 1em;
+  padding-right: 1em;
+  right: 0px;
+}
+
+.react-transform-component {
+  .increment,
+  .decrement {
+    display: none;
+  }
+}
+
+.layout {
+  min-width: 2560px;
+  width: 100%;
+
+  @include mobile {
+    width: auto;
+    min-width: none;
+  }
+
+  z-index: auto;
+
+  // div {
+  //   position: relative;
+  // }
+
+  .block_title {
+    color: #fff;
+  }
+
+  h1 {
+    font-weight: normal;
+    color: #222222;
+  }
+}
+
+.block {
+  cursor: auto;
+  border-radius: 8px;
+  background-color: #fff;
+  width: 100%;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+  box-shadow: rgb(38, 57, 77) 5px 6px 10px -9px;
+  height: 100%;
+  overflow: hidden;
+
+  &.transparent {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+
+    .block-content {
+      &-wrapper {
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.block-content {
+  height: calc(100% - 45px);
+  border-radius: 0px !important;
+  word-break: break-word;
+  padding: 0 6px;
+  overflow: auto;
+
+  &-wrapper {
+    height: 100%;
+    overflow: auto;
+    padding: 12px 15px;
+    font-size: 13px;
+  }
+
+  .ql-container.ql-snow {
+    border: none;
+  }
+
+  .ql-toolbar.ql-snow {
+    border: none;
+    border-bottom: 1px solid $lighter-grey;
+  }
+
+  &-editor-wrapper {
+    height: 100%;
+  }
+}
+
+/* Widget Features */
+
+/*IMAGE*/
+.img-fluid-container {
+  height: 100%;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.img-fluid {
+  text-align: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* PDF */
+
+.pdf-wrapper {
+  height: 100%;
+  overflow: auto;
+}
+
+.pdf-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+// .react-pdf__Page {
+//   text-align: center;
+//   position: relative;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 100%;
+//   max-height: 100%;
+//   text-align: center;
+// }
+
+.react-pdf {
+  &__Document {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__Page {
+    max-width: calc(100% - 2em);
+
+    canvas {
+      max-width: 100%;
+      height: auto !important;
+    }
+  }
+
+  &__message {
+    padding: 20px;
+  }
+}
+
+.react-pdf__Page__canvas {
+  max-width: 100%;
+}
+
+.react-pdf__Page__textContent {
+  display: none;
+}
+
+.open_pdf i {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #fff;
+  border-radius: 50%;
+  padding: 0.25em;
+}
+
+.increment {
+  border-radius: 50%;
+  padding: 0.1em !important;
+  z-index: 10000;
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  color: #fff;
+}
+
+.decrement {
+  border-radius: 50%;
+  padding: 0.1em !important;
+  z-index: 10000;
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
+  color: #fff;
+}
+
+.iframe-wrapper {
+  height: calc(100% - 60px);
+}
+
+.full-height {
+  height: 100%;
+  padding: none;
+}
+
+.full-height + div {
+  display: none;
+}
+
+.iframe-wrapper {
+  height: 98%;
+}
+
+.text-box {
+  h1 {
+    font-size: 20px;
+  }
+
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.text-box::-webkit-scrollbar {
+  display: none;
+}
+
+.youtube-frame {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+}
+
+iframe {
+  width: 100%;
+  border: none;
+  height: 100%;
+}
+
+.docs-gm {
+  box-shadow: none;
+  border: none;
+}
+
+/* Checklist */
+
+.checklist {
+  height: 100%;
+  max-height: 300px;
+}
+
+.checkboxlist {
+  height: 100%;
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+.checkboxlist span {
+  color: #000;
+}
+
+.checkbox-list {
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.checkbox-list::-webkit-scrollbar {
+  display: none;
+}
+
+.e-control {
+  max-height: 100%;
+  display: block;
+  max-width: 400px;
+  margin: auto;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+}
+
+.e-control span {
+  color: $grey;
+}
+
+.block .rdw-editor-toolbar {
+  display: none;
+}
+
+/* RGL CSS */
+
+.react-grid-layout {
+  position: relative;
+  min-height: calc(100vh);
+  border-bottom: 200px solid transparent;
+
+  transition: height 200ms ease;
+}
+
+.react-grid-item {
+  cursor: auto;
+  transition: all 200ms ease;
+  transition-property: left, top;
+}
+
+.react-grid-item .delete_button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  cursor: pointer;
+  color: $grey;
+}
+
+.react-grid-item .edit_button {
+  font-size: 14px;
+  padding-left: 0.5em;
+}
+
+.react-grid-item:hover {
+  cursor: cursor;
+}
+
+.react-grid-item h1 {
+  text-align: center;
+}
+
+.react-grid-item.cssTransforms {
+  transition-property: transform;
+}
+
+.react-grid-item.resizing {
+  z-index: 1;
+  will-change: width, height;
+}
+
+.react-grid-item.react-draggable-dragging {
+  transition: none;
+  z-index: 3;
+  will-change: transform;
+}
+
+.react-grid-item.react-grid-placeholder {
+  background: $primary;
+  border-radius: 4px;
+  opacity: 0.2;
+  transition-duration: 100ms;
+  z-index: 2;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.react-grid-item > .react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: 0;
+  right: 0;
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pg08IS0tIEdlbmVyYXRvcjogQWRvYmUgRmlyZXdvcmtzIENTNiwgRXhwb3J0IFNWRyBFeHRlbnNpb24gYnkgQWFyb24gQmVhbGwgKGh0dHA6Ly9maXJld29ya3MuYWJlYWxsLmNvbSkgLiBWZXJzaW9uOiAwLjYuMSAgLS0+DTwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DTxzdmcgaWQ9IlVudGl0bGVkLVBhZ2UlMjAxIiB2aWV3Qm94PSIwIDAgNiA2IiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjojZmZmZmZmMDAiIHZlcnNpb249IjEuMSINCXhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiDQl4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjZweCIgaGVpZ2h0PSI2cHgiDT4NCTxnIG9wYWNpdHk9IjAuMzAyIj4NCQk8cGF0aCBkPSJNIDYgNiBMIDAgNiBMIDAgNC4yIEwgNCA0LjIgTCA0LjIgNC4yIEwgNC4yIDAgTCA2IDAgTCA2IDYgTCA2IDYgWiIgZmlsbD0iIzAwMDAwMCIvPg0JPC9nPg08L3N2Zz4=");
+  background-position: bottom right;
+  padding: 0 5px 5px 0;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  cursor: se-resize;
+}
+
+.react-grid-item > .MuiBadge-root {
+  width: 100%;
+  height: 100%;
+}

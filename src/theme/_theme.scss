@@ -1,0 +1,21 @@
+//TODO, Remove all these
+$text-font: "Lato", sans-serif;
+$header-font: "Lato", sans-serif;
+
+$primary: #2c387e;
+$dark-primary: #232d65;
+$dark-blue: #1d7cb8;
+$dark-grey: #2d2d2d;
+$grey: #222222;
+$light-grey: #7d7d7d;
+$lighter-grey: #ededed;
+$almost-white: #f4f4f4;
+$light-blue: rgb(75, 174, 255);
+$white: #ffffff;
+$black: #000000;
+
+@mixin mobile {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}

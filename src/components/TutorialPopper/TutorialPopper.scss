@@ -1,0 +1,28 @@
+.tutorial-popper {
+  position: relative;
+  width: 350px;
+
+  .close-tutorial {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .tutorial {
+    &-body {
+      border-bottom: 1px solid gray;
+
+      *:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-title {
+      font-size: 16px;
+    }
+
+    &-subtitle {
+      font-size: 14px;
+    }
+  }
+}

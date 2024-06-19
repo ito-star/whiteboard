@@ -1,0 +1,6 @@
+node_modules/
+.runtimeconfig.json
+.runtimeconfig.firebase.json
+.runtimeconfig.local.json
+oidc/jwks.json
+serviceAccountKey.json

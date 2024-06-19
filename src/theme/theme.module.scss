@@ -1,0 +1,16 @@
+@import "_theme.scss";
+
+:export {
+  textFont: $text-font;
+  headerFont: $header-font;
+  primary: $primary;
+  darkPrimary: $dark-primary;
+  darkBlue: $dark-blue;
+  darkGrey: $dark-grey;
+  lightGrey: $light-grey;
+  lighterGrey: $lighter-grey;
+  almostWhite: $almost-white;
+  lightBlue: $light-blue;
+  white: $white;
+  black: $black;
+}

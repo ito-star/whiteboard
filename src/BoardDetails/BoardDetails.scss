@@ -1,0 +1,68 @@
+.board-detail-dialog {
+  .MuiDialogTitle-root {
+    order: 1;
+  }
+
+  .password-action-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .MuiDialog-paper {
+    @media screen and (min-width: 864px) {
+      min-width: 800px;
+    }
+
+    @media screen and (min-height: 673px) {
+      min-height: 609px;
+    }
+
+    @media screen and (max-height: 672px) {
+      min-height: calc(100% - 64px);
+    }
+  }
+
+  .board-detail-content {
+    order: 2;
+
+    .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .password-actions {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      width: 100%;
+      gap: 24px;
+      margin-top: 10px;
+      justify-content: right;
+    }
+
+    .password-accordion {
+      margin-bottom: 16px;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    .customize-board {
+      &_confirm {
+        float: right;
+        margin: 15px 0;
+      }
+    }
+  }
+
+  .MuiDialogActions-root {
+    order: 3;
+    min-height: 60px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}

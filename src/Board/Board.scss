@@ -1,0 +1,382 @@
+@import "../theme/_theme.scss";
+
+.remove_board:hover,
+.edit_board :hover {
+  color: $dark-blue;
+}
+
+.board-title-input {
+  width: 100%;
+  padding: 4px;
+  border: none;
+  color: white;
+  background-color: transparent;
+
+  &:focus {
+    border-bottom: 1px solid #fff;
+    outline: 0;
+  }
+
+  &:hover {
+    border-bottom: 1px solid #fff;
+  }
+
+  &.white {
+    color: black !important;
+
+    &:focus {
+      border-bottom: 1px solid #000;
+    }
+
+    &:hover {
+      border-bottom: 1px solid #000;
+    }
+  }
+}
+
+.homebutton {
+  color: #fff;
+
+  &.black {
+    color: #000;
+  }
+
+  &.white {
+    color: #fff;
+  }
+
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.homebutton:hover {
+  color: inherit;
+}
+
+.switch {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tool-bar-button {
+  padding: 0 1em;
+  font-size: 18px;
+}
+
+.add-shortcut {
+  display: none;
+  position: fixed;
+  pointer-events: none;
+  right: 20px;
+  bottom: 35px;
+  font-size: 8px;
+  z-index: 10000 !important;
+  color: #000;
+
+  @media only screen and (max-width: 768px) {
+    left: 170px;
+  }
+}
+
+.MuiPaper-root {
+  border-radius: 2px !important;
+}
+
+.add-button {
+  position: fixed !important;
+  z-index: 1000;
+  text-transform: none !important;
+  bottom: 14px !important;
+  left: calc(50% - 280px);
+  height: 35px;
+  width: 140px;
+
+  .add-button-label {
+    font-size: 11px;
+  }
+
+  border: none;
+  color: white !important;
+  background-color: $primary !important;
+  font-weight: 400 !important;
+  font-size: 13px !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  box-shadow: 8px 4px 18px 1px rgba(0, 0, 0, 0.09);
+
+  &:disabled {
+    opacity: 1;
+  }
+
+  &:hover {
+    background-color: $primary !important;
+  }
+
+  i {
+    display: block;
+    font-size: 17px;
+    padding-left: 0px !important;
+    transform: translate(-6px, 0px);
+  }
+
+  @media only screen and (max-width: 768px) {
+    left: 115px !important;
+  }
+}
+
+.bar-icon {
+  position: relative;
+}
+
+.small-short {
+  display: none;
+  position: absolute;
+  bottom: 1px;
+  left: 19px;
+  font-size: 8px;
+  z-index: 10000 !important;
+  padding: 0px;
+  color: #000;
+
+  &.create-block {
+    left: 30px;
+  }
+}
+
+.tool-bar-icons {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 4px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  z-index: 2;
+  transform: translateX(-50%);
+  opacity: 0.4;
+  transition: opacity 0.6s ease;
+  &:hover {
+    opacity: 1;
+  }
+  .title {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 800px) {
+  .tool-bar-icons {
+    div:nth-child(5),
+    div:nth-child(4),
+    div:nth-child(2) {
+      display: none !important;
+      width: 0px !important;
+    }
+
+    padding-left: calc(50% - 40px) !important;
+  }
+
+  .add-button {
+    left: calc(50% - 184px) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .tool-bar-icons {
+    div:nth-child(3) {
+      display: none !important;
+      width: 0px !important;
+    }
+
+    padding-left: calc(50% + 16px) !important;
+  }
+
+  .add-button {
+    left: calc(50% - 124px) !important;
+  }
+}
+
+.freeze-icon {
+  display: inline-block !important;
+}
+
+.toolbar-button,
+.MuiButtonBase-root.toolbar-button {
+  border-radius: 4px;
+  z-index: 1001;
+  text-transform: capitalize !important;
+  font-weight: 400;
+  font-size: 11px;
+  font-family: $header-font;
+  background-color: $primary;
+  margin: 15px;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 8px 16px 8px 16px;
+  color: white !important;
+
+  i {
+    display: block;
+    font-size: 17px;
+    padding-left: 0px !important;
+    transform: translate(-6px, 0px);
+  }
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+.tool-bar {
+  i {
+    display: inline-block;
+  }
+
+  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  z-index: 1000;
+  top: 0px;
+  color: #fff;
+
+  .tool-bar-left,
+  .tool-bar-left .tool-bar-left-title,
+  .tool-bar-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .tool-bar-left {
+    flex: 1;
+    margin-right: 20px;
+
+    img.brand-logo {
+      max-width: 200px;
+      max-height: 60px;
+    }
+  }
+
+  #user-menu-button {
+    .user-avatar {
+      color: $primary;
+      background-color: #fff;
+    }
+
+    .expand-icon {
+      color: #ffffff;
+    }
+  }
+
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 5px 0px;
+
+  &.white {
+    .tool-bar-icons {
+      background-color: #fff !important;
+    }
+
+    .toolbar-button {
+      color: #fff !important;
+    }
+
+    color: $black;
+    background-color: #fff !important;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 5px 0px;
+
+    .homebutton {
+      color: $black;
+    }
+
+    .toolbar-button {
+      color: #fff;
+    }
+
+    #user-menu-button {
+      .user-avatar {
+        color: $white;
+        background-color: $black;
+      }
+
+      .expand-icon {
+        color: $black;
+      }
+    }
+  }
+}
+
+.current-users-viewing-wrapper {
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.whiteboard .MuiToolbar-root {
+  display: none;
+  border-radius: 8px;
+  background-color: rgb(244, 244, 244);
+  position: fixed;
+  z-index: 1003;
+  width: 150px;
+  left: 40px;
+  bottom: 40px;
+}
+
+.whiteboard .MuiToolbar-root i {
+  padding: 8px;
+}
+
+.whiteboard .MuiToolbar-gutters {
+  padding: 4px 8px 4px 8px;
+}
+
+.whiteboard .MuiToolbar-regular {
+  min-height: 0;
+}
+
+#board-title {
+  width: 100%;
+  font-family: $header-font;
+  font-size: 24px;
+  padding-top: 0.25em;
+  padding-left: 1em;
+  display: inline-block;
+  word-break: break-word;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.right {
+  margin-left: 95%;
+}
+
+.checklist_input_item i {
+  transform: translate(0, 6px);
+}
+
+.checklist_text {
+  width: 95%;
+  margin-left: 5%;
+}
+
+.leave-board-button {
+  transform: translate(0, -0px) !important;
+}
+
+/* Messenger */
+.messenger {
+  transition: ease all 0.4s;
+  background-color: transparent;
+  padding-bottom: 1em;
+}
+
+.messenger i {
+  font-size: 30px;
+}
+
+.toolbar-portal {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,15 @@
+@import "../theme/_theme.scss";
+
+.dashboard-filters {
+  display: flex;
+
+  .search-input--primary {
+    background-color: white;
+  }
+
+  &--dropdown {
+    margin-left: 15px;
+    height: 40px;
+    background-color: white;
+  }
+}

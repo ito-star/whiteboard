@@ -1,0 +1,1552 @@
+openapi: 3.0.3
+info:
+  title: Whatboard API
+  description: |
+    ## Introduction
+
+    The Whatboard API allows you to use your own (or 3rd-party) software to interact with your content on
+    Whatboard. You can:
+
+    - Create Boards
+    - Update Boards
+    - Delete Boards
+    - List Boards
+    - Retrieve individual Boards
+
+    - Add Blocks to a Board
+    - Update Blocks in a Board
+    - Delete Blocks from a Board
+    - List Blocks in a Board
+    - Retrieve individual Blocks in a Board
+
+    ## Limitations
+
+    - It is not currently possible to invite users to collaborate on a Board using this API
+    - It is not currently possible to upload files using this API
+
+    ## Authentication
+
+    The Whatboard API uses OpenID Connect to handle authentication.
+
+    The configuration document is located at the following URL: [https://whatboard.app/oidc/.well-known/openid-configuration](https://whatboard.app/oidc/.well-known/openid-configuration)
+
+    You can learn more about OpenID Connect from these sites:
+
+    - [OpenID Connect Playground](https://openidconnect.net/)
+    - [OpenID Specification Site](https://openid.net)
+
+    ### Supported flows (`grant_type`s)
+
+    - `implicit`
+    - `authorization_code` (with PKCE support)
+    - `refresh_token`
+
+    Browser-based clients are encouraged to use the `authorization_code` flow with PKCE. Only use the
+    `implicit` flow if using `authorization_code` with PKCE is not possible.
+
+    ### API Docs Note
+
+    It might not look like it, but this API documentation site DOES support using the `authorization_code` flow with PKCE.
+  version: 1.0.0
+  termsOfService: "https://whatboard.app/terms"
+  contact:
+    name: Whatboard Support
+    email: support@whatboard.app
+servers:
+  - url: "https://us-central1-armspaces.cloudfunctions.net/api/v1"
+    description: Production
+    x-whatboard-env: production
+  - url: "https://us-central1-whatboard-dev.cloudfunctions.net/api/v1"
+    description: Development
+    x-whatboard-env: development
+  - url: "http://localhost:5001/whatboard-dev/us-central1/api/v1"
+    description: Local
+    x-whatboard-env: local
+security:
+  - OIDC: []
+tags:
+  - name: boards
+    x-displayName: Boards
+  - name: blocks
+    x-displayName: Blocks
+paths:
+  /boards:
+    get:
+      operationId: listBoards
+      summary: Retrieve a list of Boards
+      description: Retrieve a list of Boards
+      tags:
+        - boards
+      parameters:
+        - $ref: "#/components/parameters/OrderBy"
+        - $ref: "#/components/parameters/PageToken"
+        - $ref: "#/components/parameters/EqualTo"
+        - $ref: "#/components/parameters/Dir"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: A list of Boards
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    title: Result
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/BoardOutput"
+                  prevPageToken:
+                    title: Previous Page Token
+                    description: The pagination token for the previous page of results
+                    type: string
+                  nextPageToken:
+                    title: Next Page Token
+                    description: The pagination token for the next page of results
+                    type: string
+        default:
+          $ref: "#/components/responses/GenericError"
+    post:
+      operationId: createBoard
+      summary: Create a Board
+      description: Create a Board
+      tags:
+        - boards
+      requestBody:
+        $ref: "#/components/requestBodies/Board"
+      responses:
+        "200":
+          $ref: "#/components/responses/Board"
+        default:
+          $ref: "#/components/responses/GenericError"
+  "/boards/{boardId}":
+    parameters:
+      - $ref: "#/components/parameters/BoardId"
+    get:
+      operationId: getBoard
+      summary: Retrieve a single Board by ID
+      description: Retrieve a single Board by ID
+      tags:
+        - boards
+      responses:
+        "200":
+          $ref: "#/components/responses/Board"
+        default:
+          $ref: "#/components/responses/GenericError"
+    patch:
+      summary: Update a Board
+      requestBody:
+        $ref: "#/components/requestBodies/Board"
+      responses:
+        "200":
+          $ref: "#/components/responses/Board"
+        default:
+          $ref: "#/components/responses/GenericError"
+      description: Update a Board
+      operationId: updateBoard
+      tags:
+        - boards
+    delete:
+      summary: Delete a Board
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        default:
+          $ref: "#/components/responses/GenericError"
+      description: Delete a Board
+      operationId: deleteBoard
+      tags:
+        - boards
+  "/blocks/{boardId}":
+    parameters:
+      - $ref: "#/components/parameters/BoardId"
+    get:
+      summary: Retrieve a list of Blocks for the given Board
+      parameters:
+        - $ref: "#/components/parameters/OrderBy"
+        - $ref: "#/components/parameters/PageToken"
+        - $ref: "#/components/parameters/EqualTo"
+        - $ref: "#/components/parameters/Dir"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: A list of Blocks
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - result
+                properties:
+                  result:
+                    title: Result
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/BlockOutput"
+                  prevPageToken:
+                    title: Previous Page Token
+                    description: The pagination token for the previous page of results
+                    type: string
+                  nextPageToken:
+                    title: Next Page Token
+                    description: The pagination token for the next page of results
+                    type: string
+        default:
+          $ref: "#/components/responses/GenericError"
+      description: Retrieve a list of Blocks for the given Board
+      operationId: listBlocks
+      tags:
+        - blocks
+    post:
+      summary: Add a Block to the given Board
+      requestBody:
+        $ref: "#/components/requestBodies/Block"
+      responses:
+        "200":
+          $ref: "#/components/responses/Block"
+        default:
+          $ref: "#/components/responses/GenericError"
+      description: Add a Block to the given Board
+      operationId: createBlock
+      tags:
+        - blocks
+  "/blocks/{boardId}/{blockId}":
+    parameters:
+      - $ref: "#/components/parameters/BoardId"
+      - $ref: "#/components/parameters/BlockId"
+    get:
+      summary: Retrieve a single Block by ID
+      responses:
+        "200":
+          $ref: "#/components/responses/Block"
+        default:
+          $ref: "#/components/responses/GenericError"
+      description: Retrieve a single Block by ID
+      operationId: getBlock
+      tags:
+        - blocks
+    patch:
+      summary: Update a Block
+      requestBody:
+        $ref: "#/components/requestBodies/Block"
+      responses:
+        "200":
+          $ref: "#/components/responses/Block"
+        default:
+          $ref: "#/components/responses/GenericError"
+      description: Update a Block
+      operationId: updateBlock
+      tags:
+        - blocks
+    delete:
+      summary: Delete a Block
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        default:
+          $ref: "#/components/responses/GenericError"
+      description: Delete a Block
+      operationId: deleteBlock
+      tags:
+        - blocks
+  /me:
+    get:
+      summary: Get Me
+      description: Get information on the currently logged in user
+      operationId: getMe
+      responses:
+        "200":
+          $ref: "#/components/responses/User"
+        default:
+          $ref: "#/components/responses/GenericError"
+components:
+  schemas:
+    BoardInput:
+      title: Board (input)
+      type: object
+      properties:
+        board_name:
+          title: Board Name
+          type: string
+          default: my whatboard
+        board_header_color:
+          title: Header Color
+          description: |
+            The header color for the Board. The default value is specified in your [Account Branding Settings](/account/branding).
+          type: string
+          enum:
+            - "#dc143c"
+            - "#FF2400"
+            - "#f67c09"
+            - "#ffc106"
+            - "#55C57C"
+            - "#0da00b"
+            - "#0f8df0"
+            - "#2c387e"
+            - "#051225"
+            - "#a043bc"
+            - "#F4869C"
+            - "#FCEAB4"
+            - "#795548"
+            - "#4B4B4B"
+            - "#1f1f1f"
+            - "#000000"
+            - "#F1F1F1"
+            - "#ffffff00"
+            - "#ffffff"
+        boardBodyColor:
+          title: Body Color
+          description: |
+            The body color for the Board. The default value is specified in your [Account Branding Settings](/account/branding).
+          type: string
+          enum:
+            - "#dc143c"
+            - "#FF2400"
+            - "#f67c09"
+            - "#ffc106"
+            - "#55C57C"
+            - "#0da00b"
+            - "#0f8df0"
+            - "#2c387e"
+            - "#051225"
+            - "#a043bc"
+            - "#F4869C"
+            - "#FCEAB4"
+            - "#795548"
+            - "#4B4B4B"
+            - "#1f1f1f"
+            - "#000000"
+            - "#F1F1F1"
+            - "#ffffff00"
+            - "#ffffff"
+        isPublic:
+          title: Publically Accessible
+          type: boolean
+          default: false
+        friendly_url:
+          title: Public URL Friendly Code
+          type: string
+          minLength: 4
+          maxLength: 23
+        isArchived:
+          title: Archived
+          description: Whether or not you have archived this Board
+          type: boolean
+        pinned:
+          title: Pinned
+          description: Whether or not you have pinned this Board
+          type: boolean
+    BoardOutput:
+      title: Board (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BoardInput"
+        - required:
+            - id
+            - board_members
+            - date_created
+          properties:
+            id:
+              title: Board ID
+              type: string
+            board_members:
+              title: Board Members
+              type: array
+              items:
+                type: string
+            date_created:
+              title: Date Created
+              type: string
+              format: date-time
+            unique_url:
+              title: Public URL Invitation Code
+              type: string
+              format: uuid
+            boardUrl:
+              title: Board URL
+              type: string
+              format: url
+            boardPublicUrl:
+              title: Board Public URL
+              description: Only present when `isPublic` is `true`
+              type: string
+              format: url
+            boardPublicFriendlyUrl:
+              title: Board Friendly Public URL
+              description: Only present when `isPublic` is `true` and `friendly_url` is present
+              type: string
+              format: url
+            isSecured:
+              title: Password Protected
+              description: |
+                Whether or not this Board has been password protected. Passwords are not manageable
+                via this API. You must use https://whatboard.app in order to manage Board passwords.
+              type: boolean
+              default: false
+            currentViewingUsers:
+              title: Users Currently Viewing Board
+              type: object
+              additionalProperties:
+                x-additionalPropertiesName: User WBID
+                type: object
+                required:
+                  - displayName
+                properties:
+                  displayName:
+                    title: Display Name
+                    type: string
+                  photoURL:
+                    title: Photo URL
+                    type: string
+                    format: url
+            view_logs:
+              title: View Logs
+              type: object
+              additionalProperties:
+                x-additionalPropertiesName: User WBID
+                type: object
+                properties:
+                  lastModified:
+                    title: Last Modified
+                    type: string
+                    format: date-time
+                  lastViewed:
+                    title: Last Viewed
+                    type: string
+                    format: date-time
+            metadata:
+              title: Metadata
+              type: object
+              properties:
+                lastModified:
+                  title: Last Modified
+                  type: string
+                  format: date-time
+    BlockIdProps:
+      title: Block ID Props
+      type: object
+      properties:
+        id:
+          title: Block ID
+          type: string
+        board_id:
+          title: Board ID
+          type: string
+        created_by:
+          title: Created By
+          type: string
+      required:
+        - id
+        - board_id
+        - created_by
+    BlockInputProps:
+      title: Block Input Props
+      type: object
+      required:
+        - type
+      properties:
+        title:
+          title: Title
+          type: string
+          default: Title
+        type:
+          title: Type
+          type: string
+        color:
+          title: Color
+          type: string
+          enum:
+            - "#dc143c"
+            - "#FF2400"
+            - "#f67c09"
+            - "#ffc106"
+            - "#55C57C"
+            - "#0da00b"
+            - "#0f8df0"
+            - "#2c387e"
+            - "#051225"
+            - "#a043bc"
+            - "#F4869C"
+            - "#FCEAB4"
+            - "#795548"
+            - "#4B4B4B"
+            - "#1f1f1f"
+            - "#000000"
+            - "#F1F1F1"
+            - "#ffffff"
+    BlockOutputProps:
+      title: Block Output Props
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Grid"
+        - type: object
+          required:
+            - date_created
+          properties:
+            date_created:
+              title: Date Created
+              type: string
+              format: date-time
+            static:
+              title: "Grid: Static Placement"
+              description: '"Static" Blocks are neither draggable, nor resizable'
+              type: boolean
+              default: false
+            minH:
+              title: "Grid: Minimum Height"
+              description: 'The minimum height of the Block, in "grid units"'
+              type: integer
+              default: 1
+            minW:
+              title: "Grid: Minimum Width"
+              description: 'The minimum width of the Block, in "grid units"'
+              type: integer
+              default: 1
+            grid:
+              title: "Grid: Responsive Layout"
+              description: Layout overrides for various screen sizes
+              type: object
+              properties:
+                lg:
+                  $ref: "#/components/schemas/Grid"
+                md:
+                  $ref: "#/components/schemas/Grid"
+                sm:
+                  $ref: "#/components/schemas/Grid"
+                xs:
+                  $ref: "#/components/schemas/Grid"
+                xxs:
+                  $ref: "#/components/schemas/Grid"
+            metadata:
+              title: Metadata
+              type: object
+              properties:
+                lastModified:
+                  title: Last Modified
+                  type: string
+                  format: date-time
+                lastViewed:
+                  title: Last Viewed
+                  type: object
+                  additionalProperties:
+                    x-additionalPropertiesName: User WBID
+                    type: string
+                    format: date-time
+    BlockInput:
+      title: Block (input)
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/TextBlockInput"
+        - $ref: "#/components/schemas/PDFBlockInput"
+        - $ref: "#/components/schemas/ImageBlockInput"
+        - $ref: "#/components/schemas/VideoBlockInput"
+        - $ref: "#/components/schemas/ButtonsBlockInput"
+        - $ref: "#/components/schemas/ChecklistBlockInput"
+        - $ref: "#/components/schemas/ConversationBlockInput"
+        - $ref: "#/components/schemas/ScriptEmbedBlockInput"
+        - $ref: "#/components/schemas/IframeBlockInput"
+        - $ref: "#/components/schemas/FilesBlockInput"
+        - $ref: "#/components/schemas/QAFormBlockInput"
+        - $ref: "#/components/schemas/RSSBlockInput"
+        - $ref: "#/components/schemas/FileRequestBlockInput"
+        - $ref: "#/components/schemas/GridBlockInput"
+      discriminator:
+        propertyName: type
+        x-explicitMappingOnly: true
+        mapping:
+          Text: "#/components/schemas/TextBlockInput"
+          PDF: "#/components/schemas/PDFBlockInput"
+          Image: "#/components/schemas/ImageBlockInput"
+          Video: "#/components/schemas/VideoBlockInput"
+          Buttons: "#/components/schemas/ButtonsBlockInput"
+          Checklist: "#/components/schemas/ChecklistBlockInput"
+          Conversation: "#/components/schemas/ConversationBlockInput"
+          ScriptEmbed: "#/components/schemas/ScriptEmbedBlockInput"
+          Iframe: "#/components/schemas/IframeBlockInput"
+          Files: "#/components/schemas/FilesBlockInput"
+          QAForm: "#/components/schemas/QAFormBlockInput"
+          RSS: "#/components/schemas/RSSBlockInput"
+          FileRequest: "#/components/schemas/FileRequestBlockInput"
+          Grid: "#/components/schemas/GridBlockInput"
+    BlockOutput:
+      title: Block (output)
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/TextBlockOutput"
+        - $ref: "#/components/schemas/PDFBlockOutput"
+        - $ref: "#/components/schemas/ImageBlockOutput"
+        - $ref: "#/components/schemas/VideoBlockOutput"
+        - $ref: "#/components/schemas/ButtonsBlockOutput"
+        - $ref: "#/components/schemas/ChecklistBlockOutput"
+        - $ref: "#/components/schemas/ConversationBlockOutput"
+        - $ref: "#/components/schemas/ScriptEmbedBlockOutput"
+        - $ref: "#/components/schemas/IframeBlockOutput"
+        - $ref: "#/components/schemas/FilesBlockOutput"
+        - $ref: "#/components/schemas/QAFormBlockOutput"
+        - $ref: "#/components/schemas/RSSBlockOutput"
+        - $ref: "#/components/schemas/FileRequestBlockOutput"
+        - $ref: "#/components/schemas/GridBlockOutput"
+      discriminator:
+        propertyName: type
+        x-explicitMappingOnly: true
+        mapping:
+          Text: "#/components/schemas/TextBlockOutput"
+          PDF: "#/components/schemas/PDFBlockOutput"
+          Image: "#/components/schemas/ImageBlockOutput"
+          Video: "#/components/schemas/VideoBlockOutput"
+          Buttons: "#/components/schemas/ButtonsBlockOutput"
+          Checklist: "#/components/schemas/ChecklistBlockOutput"
+          Conversation: "#/components/schemas/ConversationBlockOutput"
+          ScriptEmbed: "#/components/schemas/ScriptEmbedBlockOutput"
+          Iframe: "#/components/schemas/IframeBlockOutput"
+          Files: "#/components/schemas/FilesBlockOutput"
+          QAForm: "#/components/schemas/QAFormBlockOutput"
+          RSS: "#/components/schemas/RSSBlockOutput"
+          FileRequest: "#/components/schemas/FileRequestBlockOutput"
+          Grid: "#/components/schemas/GridBlockOutput"
+    TextBlockCommon:
+      title: Text (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Text
+        text:
+          title: Text
+          type: string
+        isPrivateTextBlock:
+          title: Make Private
+          type: boolean
+          default: false
+        isTransparentTextBlock:
+          title: Transparent Background
+          type: boolean
+          default: false
+        textEditorFiles:
+          title: Text Editor Files
+          description: Represents an image uploaded to Whatboard file storage and used within the text editor
+          type: array
+          items:
+            $ref: "#/components/schemas/ImageFile"
+    TextBlockInput:
+      title: Text (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/TextBlockCommon"
+    TextBlockOutput:
+      title: Text (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/TextBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    PDFBlockCommon:
+      title: PDF (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - PDF
+        pdfFiles:
+          title: PDF Files
+          description: Represents a PDF uploaded to Whatboard file storage
+          type: array
+          maxItems: 1
+          items:
+            $ref: "#/components/schemas/PDFFile"
+        pdf_path:
+          title: PDF URL
+          description: "The URL to a PDF file. Typically, this will be a PDF file hosted outside of Whatboard. However, if the `pdfFiles` property is present, then this property will automatically be set using data from `pdfFiles`"
+          type: string
+          format: url
+    PDFBlockInput:
+      title: PDF (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/PDFBlockCommon"
+    PDFBlockOutput:
+      title: PDF (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/PDFBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    ImageBlockCommon:
+      title: Image (common)
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          enum:
+            - Image
+        imageFiles:
+          title: Image Files
+          description: Represents an image uploaded to Whatboard file storage
+          type: array
+          maxItems: 1
+          items:
+            $ref: "#/components/schemas/ImageFile"
+        image_path:
+          title: Image URL
+          description: "The URL to an image file. Typically, this will be an image file hosted outside of Whatboard. However, if the `imageFiles` property is present, then this property will automatically be set using data from `imageFiles`"
+          type: string
+          format: url
+        imageLink:
+          title: Image Link
+          description: When the image is clicked on, this web page will be opened in a new browser window/tab.
+          type: string
+          format: url
+    ImageBlockInput:
+      title: Image (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ImageBlockCommon"
+    ImageBlockOutput:
+      title: Image (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ImageBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    VideoBlockCommon:
+      title: Video (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Video
+        video_id:
+          title: Video URL
+          type: string
+          format: url
+    VideoBlockInput:
+      title: Video (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/VideoBlockCommon"
+    VideoBlockOutput:
+      title: Video (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/VideoBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    ButtonsBlockCommon:
+      title: Buttons (common)
+      type: object
+      allOf:
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Buttons
+        - $ref: "#/components/schemas/SupportsWebhooks"
+        - type: object
+          properties:
+            useButtonWebhook:
+              title: Use Webhook
+              type: boolean
+              default: false
+            buttons:
+              title: Buttons
+              type: array
+              items:
+                $ref: "#/components/schemas/Button"
+    ButtonsBlockInput:
+      title: Buttons (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ButtonsBlockCommon"
+    ButtonsBlockOutput:
+      title: Buttons (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ButtonsBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    ChecklistBlockCommon:
+      title: Checklist (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Checklist
+        data:
+          title: Checklist Items
+          type: array
+          items:
+            $ref: "#/components/schemas/ChecklistItem"
+    ChecklistBlockInput:
+      title: Checklist (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ChecklistBlockCommon"
+    ChecklistBlockOutput:
+      title: Checklist (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ChecklistBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    ConversationBlockCommon:
+      title: Chat (common)
+      type: object
+      allOf:
+        - type: object
+          properties:
+            type:
+              title: Type
+              type: string
+              enum:
+                - Conversation
+        - $ref: "#/components/schemas/SupportsWebhooks"
+        - type: object
+          properties:
+            useWebhook:
+              title: Use Webhook
+              type: boolean
+              default: false
+            isFireMyActions:
+              title: Fire on my actions
+              type: boolean
+              default: false
+    ConversationBlockInput:
+      title: Chat (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ConversationBlockCommon"
+    ConversationBlockOutput:
+      title: Chat (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ConversationBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    ScriptEmbedBlockCommon:
+      title: Embed HTML (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - ScriptEmbed
+        scriptEmbed:
+          title: Script Embed Code
+          type: string
+    ScriptEmbedBlockInput:
+      title: Embed HTML (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ScriptEmbedBlockCommon"
+    ScriptEmbedBlockOutput:
+      title: Embed HTML (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/ScriptEmbedBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    IframeBlockCommon:
+      title: Embed Web Page (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Iframe
+        iframe_url:
+          title: Web Page URL
+          type: string
+          format: url
+        useIframely:
+          title: "Use Iframely (ideal for Twitter, Facebook & hard-to-embed sites)"
+          type: boolean
+          default: false
+    IframeBlockInput:
+      title: Embed Web Page (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/IframeBlockCommon"
+    IframeBlockOutput:
+      title: Embed Web Page (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/IframeBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    FilesBlockCommon:
+      title: File Storage (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Files
+        files:
+          title: Files
+          description: Represents files uploaded to Whatboard file storage
+          type: array
+          items:
+            $ref: "#/components/schemas/File"
+    FilesBlockInput:
+      title: File Storage (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/FilesBlockCommon"
+    FilesBlockOutput:
+      title: File Storage (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/FilesBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    QAFormBlockCommon:
+      title: Q & A Form (common)
+      type: object
+      allOf:
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - QAForm
+        - $ref: "#/components/schemas/SupportsWebhooks"
+        - type: object
+          properties:
+            useQAWebhook:
+              title: Use Webhook
+              type: boolean
+              default: false
+            qa_data:
+              title: Q & A Form Items
+              items:
+                $ref: "#/components/schemas/QAFormItem"
+              uniqueItems: true
+              minItems: 1
+            qaEmailBoardOwner:
+              title: Email Responses to Board Owner
+              type: boolean
+              default: true
+    QAFormBlockInput:
+      title: Q & A Form (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/QAFormBlockCommon"
+    QAFormBlockOutput:
+      title: Q & A Form (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/QAFormBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    RSSBlockCommon:
+      title: RSS Feed (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - RSS
+        rss_url:
+          title: RSS Feed URL
+          type: string
+          format: url
+    RSSBlockInput:
+      title: RSS Feed (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/RSSBlockCommon"
+    RSSBlockOutput:
+      title: RSS Feed (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/RSSBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    FileRequestBlockCommon:
+      title: File Request (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - FileRequest
+        fileRequestSettings:
+          title: File Request Settings
+          type: object
+          properties:
+            note:
+              title: Description
+              type: string
+              description: A short, helpful description of the file(s) you are requesting
+        fileRequestFiles:
+          title: File Request Files
+          type: array
+          description: Represents files that have been requested by the Block creator, uploaded to Whatboard file storage.
+          items:
+            $ref: "#/components/schemas/FileRequestFile"
+    FileRequestBlockInput:
+      title: File Request (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/FileRequestBlockCommon"
+    FileRequestBlockOutput:
+      title: File Request (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/FileRequestBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    GridBlockCommon:
+      title: Excel / CSV Viewer (common)
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Grid
+        gridFiles:
+          title: Excel / CSV Files
+          description: Represents Excel / CSV files uploaded to Whatboard file storage
+          type: array
+          items:
+            $ref: "#/components/schemas/GridFile"
+    GridBlockInput:
+      title: Excel / CSV Viewer (input)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/GridBlockCommon"
+    GridBlockOutput:
+      title: Excel / CSV Viewer (output)
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/BlockIdProps"
+        - $ref: "#/components/schemas/BlockInputProps"
+        - $ref: "#/components/schemas/GridBlockCommon"
+        - $ref: "#/components/schemas/BlockOutputProps"
+    File:
+      title: File
+      type: object
+      additionalProperties: false
+      properties:
+        createdBy:
+          title: Created By
+          type: string
+        fileName:
+          title: File Name
+          type: string
+        filePath:
+          title: File URL
+          type: string
+          format: url
+        fileSize:
+          title: File Size
+          type: integer
+        fileType:
+          title: MIME Type
+          type: string
+        storagePath:
+          title: Storage Path
+          type: string
+        uploadDate:
+          title: Upload Date
+          type: string
+          format: date-time
+    PDFFile:
+      title: PDF File
+      allOf:
+        - $ref: "#/components/schemas/File"
+        - type: object
+          properties:
+            fileType:
+              type: string
+              enum:
+                - application/pdf
+    ImageFile:
+      title: Image File
+      allOf:
+        - $ref: "#/components/schemas/File"
+        - type: object
+          properties:
+            fileType:
+              type: string
+              enum:
+                - image/gif
+                - image/jpeg
+                - image/png
+                - image/webp
+    FileRequestFile:
+      title: File Request File
+      allOf:
+        - $ref: "#/components/schemas/File"
+        - type: object
+          properties:
+            id:
+              title: File ID
+              type: string
+    GridFile:
+      title: Excel / CSV File
+      allOf:
+        - $ref: "#/components/schemas/File"
+        - type: object
+          properties:
+            fileType:
+              type: string
+              enum:
+                - text/csv
+                - application/vnd.ms-excel
+                - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    Button:
+      title: Button
+      type: object
+      oneOf:
+        - $ref: "#/components/schemas/CustomButton"
+        - $ref: "#/components/schemas/TwitterButton"
+        - $ref: "#/components/schemas/FacebookButton"
+        - $ref: "#/components/schemas/YoutubeButton"
+        - $ref: "#/components/schemas/LinkedInButton"
+      discriminator:
+        propertyName: type
+        x-explicitMappingOnly: true
+        mapping:
+          Custom: "#/components/schemas/CustomButton"
+          Twitter: "#/components/schemas/TwitterButton"
+          Facebook: "#/components/schemas/FacebookButton"
+          Youtube: "#/components/schemas/YoutubeButton"
+          LinkedIn: "#/components/schemas/LinkedInButton"
+    ButtonCommon:
+      title: Button Common Props
+      type: object
+      required:
+        - type
+      properties:
+        id:
+          title: ID
+          description: "When adding new buttons, this property will be added automatically if it is not present"
+          type: string
+          format: uuid
+        type:
+          title: Type
+          type: string
+        color:
+          title: Color
+          type: string
+          pattern: "^#([a-fA-F0-9]{3,4}|[a-fA-F0-9]{4}(?:[a-fA-F0-9]{2}){1,2})$"
+        backgroundColor:
+          title: Background Color
+          type: string
+          pattern: "^#([a-fA-F0-9]{3,4}|[a-fA-F0-9]{4}(?:[a-fA-F0-9]{2}){1,2})$"
+        text:
+          title: Button Text
+          type: string
+        url:
+          title: Button URL
+          type: string
+          format: url
+    CustomButton:
+      title: Custom Button
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ButtonCommon"
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Custom
+            color:
+              type: string
+              default: "#ffffff"
+            backgroundColor:
+              type: string
+              default: "#2972a9"
+            text:
+              type: string
+              default: Click here to change
+    TwitterButton:
+      title: Twitter Button
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ButtonCommon"
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Twitter
+            color:
+              type: string
+              default: "#ffffff"
+            backgroundColor:
+              type: string
+              default: "#5cb1e9"
+            text:
+              type: string
+              default: Follow me
+            url:
+              type: string
+              default: "https://twitter.com/"
+    FacebookButton:
+      title: Facebook Button
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ButtonCommon"
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Facebook
+            color:
+              type: string
+              default: "#ffffff"
+            backgroundColor:
+              type: string
+              default: "#3b5a92"
+            text:
+              type: string
+              default: Find me on Facebook
+            url:
+              type: string
+              default: "https://www.facebook.com/"
+    YoutubeButton:
+      title: Youtube Button
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ButtonCommon"
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Youtube
+            color:
+              type: string
+              default: "#ffffff"
+            backgroundColor:
+              type: string
+              default: "#c90022"
+            text:
+              type: string
+              default: Watch me on Youtube
+            url:
+              type: string
+              default: "https://www.youtube.com/"
+    LinkedInButton:
+      title: LinkedIn Button
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/ButtonCommon"
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - LinkedIn
+            color:
+              type: string
+              default: "#ffffff"
+            backgroundColor:
+              type: string
+              default: "#1979ae"
+            text:
+              type: string
+              default: Let's connect!
+            url:
+              type: string
+              default: "https://www.linkedin.com/"
+    SupportsWebhooks:
+      title: Supports Webhooks
+      type: object
+      properties:
+        webhookURL:
+          title: Webhook URL
+          type: string
+          format: url
+    ChecklistItem:
+      title: Checklist Item
+      type: object
+      required:
+        - text
+      properties:
+        id:
+          title: ID
+          description: "When adding new buttons, this property will be added automatically if it is not present"
+          type: string
+          format: uuid
+        text:
+          title: Text
+          type: string
+        description:
+          title: Text
+          type: string
+        checked:
+          title: Checked
+          type: boolean
+          default: false
+    QAFormItem:
+      title: Q & A Form Item
+      type: object
+      properties:
+        id:
+          title: ID
+          description: "When adding new questions, this property will be added automatically if it is not present"
+          type: string
+          format: uuid
+        question:
+          title: Question
+          type: string
+        answer:
+          title: Answer
+          type: string
+    Grid:
+      title: Grid Layout
+      type: object
+      properties:
+        h:
+          title: "Grid: Height"
+          description: 'The height of the Block, in "grid units"'
+          type: integer
+          default: 2
+        w:
+          title: "Grid: Width"
+          description: 'The width of the Block, in "grid units"'
+          type: integer
+          default: 2
+        x:
+          title: "Grid: X Coordinate"
+          description: 'The X coordinate of the Block, in "grid units"'
+          type: integer
+          default: 0
+        y:
+          title: "Grid: Y Coordinate"
+          description: 'The Y coordinate of the Block, in "grid units"'
+          type: integer
+          default: 0
+    User:
+      title: User
+      type: object
+      properties:
+        wbid:
+          title: WBID
+          type: string
+        uid:
+          title: Firebase UID
+          type: string
+        isAnonymous:
+          title: Anonymous User
+          type: boolean
+        email:
+          title: Email Address
+          type: string
+          format: email
+        emailVerified:
+          title: Email Address Verified
+          type: boolean
+        displayName:
+          title: Display Name
+          type: string
+        photoURL:
+          title: Photo URL
+          type: string
+          format: url
+        providerData:
+          title: Firebase Auth Provider Data
+          type: array
+          items:
+            type: object
+            properties:
+              displayName:
+                title: Display Name
+                description: The display name for the linked provider
+                type: string
+              email:
+                title: Email Address
+                description: The email for the linked provider
+                type: string
+                format: email
+              phoneNumber:
+                title: Phone Number
+                description: The phone number for the linked provider
+                type: string
+              photoURL:
+                title: Photo URL
+                description: The photo URL for the linked provider
+                type: string
+                format: url
+              providerId:
+                title: Provider ID
+                description: The linked provider ID (for example, "google.com" for the Google provider)
+                type: string
+              uid:
+                title: UID
+                description: The user identifier for the linked provider
+                type: string
+        token:
+          title: Auth Token Info
+          type: object
+          properties:
+            claims:
+              title: Custom Token Claims
+              type: object
+              properties:
+                isAdmin:
+                  title: Admin User
+                  type: boolean
+                stripeRole:
+                  title: Stripe Role
+                  type: string
+                  enum:
+                    - basic
+                    - premium
+                    - premium-plus
+                isSpecial:
+                  title: Special User
+                  type: boolean
+        usage:
+          title: Usage Information
+          type: object
+          properties:
+            boards:
+              title: Boards
+              description: The number of boards the user has created
+              type: number
+            storage:
+              title: File Storage
+              description: The total file storage usage for the user (in bytes)
+              type: number
+    Error:
+      title: Error
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          title: Error Message
+          type: string
+        errorDescription:
+          title: Error Description
+          type: string
+  parameters:
+    BoardId:
+      name: boardId
+      in: path
+      schema:
+        type: string
+      required: true
+    BlockId:
+      name: blockId
+      in: path
+      schema:
+        type: string
+      required: true
+    OrderBy:
+      name: orderBy
+      in: query
+      schema:
+        type: string
+    PageToken:
+      name: pageToken
+      in: query
+      schema:
+        type: string
+    EqualTo:
+      name: equalTo
+      in: query
+      schema:
+        type: string
+    Dir:
+      name: dir
+      in: query
+      schema:
+        type: string
+        enum:
+          - asc
+          - desc
+        default: asc
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 10
+  requestBodies:
+    Board:
+      description: A single Board
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BoardInput"
+    Block:
+      description: A single Block
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BlockInput"
+  responses:
+    Board:
+      description: A single Board
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BoardOutput"
+    Block:
+      description: A single Block
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BlockOutput"
+    User:
+      description: A single User
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+    NoContent:
+      description: No content
+    GenericError:
+      description: Generic Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+  securitySchemes:
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: "https://whatboard.app/oidc/.well-known/openid-configuration"

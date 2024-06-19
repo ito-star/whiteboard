@@ -1,0 +1,28 @@
+@import "../theme/_theme.scss";
+
+.loading-billing-portal-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+
+  #loader {
+    width: 48px !important;
+    height: 48px !important;
+    top: calc(50% - 8px);
+    width: 100%;
+  }
+
+  h1 {
+    width: 100%;
+    font-weight: 400;
+    text-align: center;
+    position: absolute;
+    top: calc(50% - 40px);
+    font-family: $header-font;
+    font-size: 20px;
+  }
+}

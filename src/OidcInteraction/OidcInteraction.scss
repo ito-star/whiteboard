@@ -1,0 +1,8 @@
+@import "../theme/_theme.scss";
+
+@media (max-width: 1240px) {
+  .margin-middle.oidc-interaction-type-consent {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

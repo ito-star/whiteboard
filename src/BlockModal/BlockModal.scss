@@ -1,0 +1,369 @@
+@import "../theme/_theme.scss";
+
+.ql-toolbar {
+  line-height: 1;
+}
+
+/* Set droplist names - -item is the currently selected font, -label is the font's appearance in the droplist*/
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=""]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=""]::before {
+  content: "Default";
+}
+
+.ql-font-comic-sans,
+.ql-font span[data-value="comic-sans"]::before {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.ql-font-courier-new,
+.ql-font span[data-value="courier-new"]::before {
+  font-family: "Courier New";
+}
+
+.ql-font-georgia,
+.ql-font span[data-value="georgia"]::before {
+  font-family: Georgia, serif;
+}
+
+.ql-font-helvetica,
+.ql-font span[data-value="helvetica"]::before {
+  font-family: Helvetica, sans-serif;
+}
+
+.ql-font-lucida,
+.ql-font span[data-value="lucida"]::before {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.ql-font-oswald,
+.ql-font span[data-value="oswald"]::before {
+  font-family: "Oswald", sans-serif;
+}
+
+.ql-font-francoisone,
+.ql-font span[data-value="francoisone"]::before {
+  font-family: "Francois One", sans-serif;
+}
+
+.ql-font-ibmplexsans,
+.ql-font span[data-value="ibmplexsans"]::before {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arial"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="arial"]::before {
+  content: "Arial";
+  font-family: "Arial";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="roboto"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="roboto"]::before {
+  content: "Roboto";
+  font-family: "Roboto";
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arimo"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="arimo"]::before {
+  content: "Arimo";
+  font-family: "Arimo";
+}
+
+.type-selector {
+  border: 0;
+  margin: 0;
+  display: inline-flex;
+  padding: 0;
+  position: relative;
+  min-width: 0;
+  flex-direction: column;
+  vertical-align: top;
+  width: 100%;
+}
+
+/****************************************************
+Set the font-family content used for the HTML content.
+*****************************************************/
+.ql-font-arial {
+  font-family: "Arial";
+}
+
+.ql-font-roboto {
+  font-family: "Roboto";
+}
+
+.ql-font-arimo {
+  font-family: "Arimo";
+}
+
+#openLinkInNewWindow {
+  width: 13px !important;
+  margin-left: 0 !important;
+}
+
+#block-edit-form {
+  .quill {
+    .ql-editor {
+      height: 300px;
+    }
+  }
+}
+
+.full-width-form {
+  width: 100%;
+}
+
+.accordion-modal-details {
+  display: block !important;
+}
+
+.modal-note {
+  display: block;
+}
+
+.modal-pre {
+  display: block;
+  background-color: #eee;
+  padding: 14px;
+  margin: 16px;
+  margin-top: 8px;
+  border-radius: 4px;
+  color: rgb(255, 92, 236) !important;
+}
+
+.save-and-new-button {
+  background-color: #1a214b !important;
+  color: #fff !important;
+}
+
+.upload-button {
+  font-family: $header-font !important;
+  background-color: rgba(34, 117, 215, 0.9) !important;
+  color: #fff !important;
+  width: 160px !important;
+  text-transform: capitalize !important;
+  margin-left: calc(50% - 80px) !important;
+  padding: 10px 16px 9px 16px !important;
+}
+
+.qa-add-button {
+  width: 100%;
+}
+
+.qainput-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px !important;
+  margin-bottom: 10px;
+
+  &-header {
+    display: flex;
+    margin-bottom: 10px;
+
+    &-title {
+      input {
+        padding: 8px;
+      }
+
+      background-color: #eee;
+      border-radius: 4px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      flex: 1;
+      border: none;
+      outline: none;
+      color: black;
+      font-weight: bold;
+    }
+  }
+
+  &-answer {
+    textarea {
+      padding: 4px;
+    }
+
+    flex: 1;
+  }
+}
+
+.checklist_input_item {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.checklist_text {
+  margin-bottom: 5px !important;
+
+  &-description {
+    margin-top: 10px !important;
+  }
+
+  &-add-description {
+    display: block;
+    font-size: 10px;
+    color: #0645ad;
+  }
+}
+
+.modal-dialog-title {
+  position: relative;
+
+  .help-button {
+    position: absolute;
+    top: 7px;
+    left: 120px;
+    z-index: 1000;
+  }
+}
+
+.color-popover {
+  z-index: 1000;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  border-radius: 4px;
+}
+
+.color-cover {
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+}
+
+.color-picker {
+  &-label {
+    color: grey;
+    position: absolute !important;
+    top: 22px;
+    right: 66px;
+  }
+
+  &-button {
+    position: absolute !important;
+    top: 16px;
+    right: 22px;
+    padding: 16px !important;
+    border: 2px solid lightgrey !important;
+  }
+}
+
+.color-label {
+  position: absolute;
+  top: 22px;
+  right: 66px;
+  color: grey;
+}
+
+.color-picker {
+  padding-top: 20px;
+  padding-left: 26px;
+  padding-bottom: 10px;
+  border-radius: 4px;
+
+  background-color: #fff;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.14),
+    0px 8px 10px 1px rgba(0, 0, 0, 0.1), 0px 3px 14px 2px rgba(0, 0, 0, 0.09);
+
+  span div span div {
+    border: 1px solid #eee;
+  }
+}
+
+.dark-font {
+  .block_title {
+    color: #000 !important;
+  }
+
+  color: #000;
+}
+
+.files-block-checkbox {
+  margin-left: 20px;
+}
+
+.files-block-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    margin: 0px 10px;
+  }
+}
+
+.dialog-modal-bg {
+  background-color: rgb(250, 250, 250) !important;
+}
+
+.MuiDialogActions-root {
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 520px) {
+    justify-content: space-between !important;
+
+    button {
+      width: 100%;
+      margin: 5px;
+    }
+  }
+
+  @media screen and (min-width: 310px) and (max-width: 520px) {
+    button.cancel-button,
+    button.neutral-button {
+      width: 45%;
+    }
+  }
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+
+  .MuiButton-root.custom-button {
+    flex: 1;
+  }
+}
+
+.MuiDialogTitle-root {
+  .help-button {
+    float: right;
+  }
+}
+
+.html-editor {
+  .html-editor--private-tooltip {
+    vertical-align: sub;
+    padding: 0;
+  }
+}
+
+.help-tooltip {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.uppy {
+  &-Dashboard {
+    z-index: 1500;
+  }
+}
+
+.MuiIconButton-root {
+  &.blockmodal {
+    &-checklist {
+      &-remove {
+        right: 0;
+        top: 10px;
+        width: 30px;
+        position: absolute;
+      }
+
+      &-add {
+        bottom: -5px;
+        padding-top: 5px;
+      }
+    }
+  }
+}

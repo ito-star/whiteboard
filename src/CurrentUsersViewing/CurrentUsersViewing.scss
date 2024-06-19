@@ -1,0 +1,15 @@
+@import "../theme/_theme.scss";
+
+.current-users-viewing {
+  &-title-text {
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px 0;
+
+    &__display-name {
+      display: flex;
+      align-items: center;
+      margin: 0 0 0 5px;
+    }
+  }
+}

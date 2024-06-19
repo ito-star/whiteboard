@@ -1,0 +1,162 @@
+@import "../theme/_theme.scss";
+
+.account-header {
+  text-align: left;
+  font-family: $header-font;
+}
+
+.account-page {
+  padding-bottom: 50px;
+
+  h1 {
+    margin-top: 1em;
+    text-align: center;
+  }
+
+  .simple-nav-bar {
+    h1 {
+      margin-top: 0;
+    }
+  }
+
+  .general-info-section {
+    display: flex;
+    flex-direction: column;
+
+    .confirm-button {
+      margin-top: 80px;
+      align-self: center;
+
+      &.upgrade-button {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.account-section {
+  margin-top: 40px;
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  padding-bottom: 1em;
+
+  .MuiAvatar-root {
+    background-color: $primary;
+    font-size: 36px;
+    transform: translate(0, 20px);
+    margin-left: calc(50% - 48px);
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+  }
+
+  h2 {
+    text-align: left;
+    font-family: $header-font;
+    padding: 1em;
+  }
+}
+
+.account-name-container {
+  position: relative;
+
+  span {
+    position: absolute;
+    top: 0px;
+    left: 20%;
+  }
+}
+
+.current-email,
+.password {
+  &-title {
+    font-size: 1.5em;
+    display: block;
+    text-align: left;
+    padding: 1em 0 1em 30px;
+  }
+}
+
+.password-field-container,
+.current-email-container {
+  h3 {
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  text-align: left;
+  padding-left: 45px;
+  margin-bottom: 30px;
+}
+
+.final-section {
+  margin-top: 60px;
+}
+
+.greyed {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.account-name {
+  input {
+    font-family: $header-font;
+    text-align: center;
+    font-size: 24px;
+  }
+}
+
+.password-field {
+  input {
+    font-family: $header-font;
+    font-size: 24px;
+    width: 375px;
+  }
+}
+
+.current-plan {
+  color: $light-grey;
+}
+
+.progress-wrapper {
+  margin-left: 5%;
+  width: 90%;
+}
+
+.usage-container {
+  .progress-wrapper span {
+    font-size: 16px;
+  }
+
+  p {
+    color: $grey;
+    margin-left: 0;
+    padding: 1em 0;
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 24px;
+    padding-bottom: 0.5em;
+  }
+}
+
+.palette-section {
+  padding: 12px;
+  margin-top: 16px;
+
+  form {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .customize-board-actions {
+    align-self: center;
+    margin-top: 16px;
+  }
+
+  .upgrade-offer {
+    text-align: center;
+  }
+}

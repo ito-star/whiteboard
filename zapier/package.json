@@ -1,0 +1,23 @@
+{
+  "name": "whatboard-zapier-triggers",
+  "version": "1.1.0",
+  "description": "Whatboard trigger app for the Zapier platform.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive",
+    "zp": "zapier push"
+  },
+  "engines": {
+    "node": ">=8.10.0",
+    "npm": ">=5.6.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "zapier-platform-core": "12.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^9.2.0",
+    "should": "^13.2.0"
+  },
+  "private": true
+}

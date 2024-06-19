@@ -1,0 +1,40 @@
+@import "../theme/_theme.scss";
+
+.colorPicker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(66px, 2fr));
+
+  width: 100%;
+  .color-item {
+    margin-top: 16px;
+    margin-left: 10px;
+    margin-right: 16px;
+
+    transition: ease all 0.1s;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    border-radius: 2px;
+    &.whiteColor {
+      border: 1px solid lightgrey;
+    }
+    &.nocolor {
+      border: 1px solid lightgrey;
+      background-color: white;
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        border-top: 2px solid red;
+        width: 58px;
+        transform: rotate(45deg);
+        transform-origin: 0% 0%;
+      }
+    }
+
+    &.selected {
+      border: 2px solid red;
+      border-radius: 4px;
+    }
+  }
+}

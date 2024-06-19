@@ -1,0 +1,36 @@
+@import "../theme/_theme.scss";
+
+.error-page {
+  .error-header {
+    font-size: 204px;
+  }
+  .logo-link {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  .error-sub {
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .error-content {
+    margin-top: 100px;
+    h1 {
+      font-family: $header-font;
+    }
+    text-align: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .error-page {
+    .error-header {
+      font-size: 114px;
+    }
+  }
+}

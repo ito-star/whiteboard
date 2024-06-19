@@ -1,0 +1,125 @@
+{
+  "database": {
+    "predeploy": [
+      "node \"$PROJECT_DIR/scripts/ensure-master-branch.js\""
+    ],
+    "rules": "database.rules.json"
+  },
+  "firestore": {
+    "predeploy": [
+      "node \"$PROJECT_DIR/scripts/ensure-master-branch.js\""
+    ],
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": {
+    "predeploy": [
+      "node \"$PROJECT_DIR/scripts/ensure-master-branch.js\""
+    ],
+    "source": "functions"
+  },
+  "hosting": {
+    "predeploy": [
+      "node \"$PROJECT_DIR/scripts/ensure-master-branch.js\"",
+      "node \"$PROJECT_DIR/scripts/build-frontend.js\""
+    ],
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.log"
+    ],
+    "rewrites": [
+      {
+        "source": "/oidc/interaction/*",
+        "destination": "/index.html"
+      },
+      {
+        "regex": "/oidc(?:/.*)?",
+        "function": "oidc"
+      },
+      {
+        "source": "/api-docs",
+        "function": "api_docs"
+      },
+      {
+        "source": "/api-docs/**",
+        "function": "api_docs"
+      },
+      {
+        "source": "/api-specs/**",
+        "function": "api_specs"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          },
+          {
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
+          },
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains"
+          }
+        ]
+      },
+      {
+        "source": "/oidc/**",
+        "headers": [
+          {
+            "key": "Pragma",
+            "value": "no-cache"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "private, no-cache, no-store, must-revalidate"
+          }
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "predeploy": [
+      "node \"$PROJECT_DIR/scripts/ensure-master-branch.js\""
+    ],
+    "rules": "storage.rules"
+  },
+  "emulators": {
+    "database": {
+      "host": "localhost",
+      "port": 9002
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "pubsub": {
+      "port": 8085
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    }
+  }
+}

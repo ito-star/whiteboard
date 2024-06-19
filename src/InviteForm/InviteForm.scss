@@ -1,0 +1,64 @@
+@import "../theme/_theme.scss";
+
+.boardInviter-header {
+  display: flex;
+  flex-flow: column;
+
+  &-row {
+    display: flex;
+
+    .list-item {
+      padding: 0px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    .header-text,
+    .list-item {
+      flex: 1;
+    }
+  }
+}
+
+.track-check-label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.invite-form {
+  &-create-custom-url {
+    &--sub-header {
+      font-size: 12px;
+    }
+
+    &--header {
+      display: block;
+    }
+
+    &--input {
+      width: 100%;
+    }
+  }
+
+  &-public-url {
+    &--header {
+      font-weight: bold;
+    }
+
+    &--submit {
+      margin-top: 15px;
+    }
+  }
+
+  &-copied-to-clipboard {
+    font-size: 10px;
+    color: red;
+  }
+
+  &_save-button {
+    margin-top: 15px;
+  }
+}

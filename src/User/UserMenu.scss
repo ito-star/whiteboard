@@ -1,0 +1,45 @@
+#user-menu-button {
+  padding: 0 !important;
+
+  border-radius: 8px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.user-boards {
+  span {
+    font-size: 12.5px !important;
+  }
+}
+
+.user-storage {
+  span {
+    font-size: 12.5px !important;
+  }
+}
+
+.user-menu-upgrade-offer {
+  padding-bottom: 10px;
+}
+
+.usage-header {
+  span {
+    font-size: 15px !important;
+  }
+
+  padding-top: 10px;
+}
+
+.tutorial-item {
+  .reset-action {
+    color: #007bff;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.signup-cta {
+  margin-right: 12px;
+}

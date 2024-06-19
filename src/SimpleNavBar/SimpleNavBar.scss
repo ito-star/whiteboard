@@ -1,0 +1,28 @@
+@import "../theme/_theme.scss";
+
+.simple-nav-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 5px 0px;
+  background-color: #fff !important;
+
+  &-left,
+  &-right {
+    display: flex;
+    align-items: center;
+  }
+
+  #user-menu-button {
+    .user-avatar {
+      background-color: $primary;
+      color: #ffffff;
+    }
+
+    .expand-icon {
+      color: #000000;
+    }
+  }
+}

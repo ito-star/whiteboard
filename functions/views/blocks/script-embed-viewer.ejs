@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios@0.21.1/dist/axios.js"></script>
+    <script type="text/javascript">
+      (function (axios, window, document, undefined) {
+        const whatboardUrl = <%- JSON.stringify(whatboardUrl) %>;
+        const basePath = <%- JSON.stringify(basePath || "") %>;
+        const viewEmbedScripts = '/blocks-viewEmbedScripts';
+
+        window.addEventListener("message", receiveMessage, false);
+
+        function sendMessage(event, message) {
+          event.source.postMessage(message, whatboardUrl);
+        }
+
+        function sendLoaded(event) {
+          sendMessage(event, {loaded: true});
+        }
+
+        function receiveMessage(event) {
+          try {
+            if(event.origin !== whatboardUrl) {
+              return;
+            }
+
+            if(!event.data) {
+              return;
+            }
+
+            if(!event.data.boardId) {
+              throw new Error('"boardId" is required');
+            }
+
+            if(!event.data.blockId) {
+              throw new Error('"blockId" is required');
+            }
+
+            if(!event.data.accessToken) {
+              throw new Error('"accessToken" is required');
+            }
+
+            axios.get(viewEmbedScripts, {
+              method: "get",
+              baseURL: basePath,
+              headers: {
+                Authorization: "Bearer " + event.data.accessToken,
+              },
+              params: {
+                boardId: event.data.boardId,
+                blockId: event.data.blockId,
+              },
+              responseType: "text",
+            }).then(function(response) {
+              const iframe = document.createElement("iframe");
+              iframe.id = "script-embed";
+              iframe.srcdoc = response.data;
+              iframe.style.width = "98vw";
+              iframe.style.height = "93vh";
+              iframe.style.border = "none";
+
+              const oldIframe = document.getElementById(iframe.id);
+
+              if(oldIframe) {
+                document.body.removeChild(oldIframe);
+              }
+
+              document.body.appendChild(iframe);
+              sendLoaded(event);
+            }).catch(function(e) {
+              console.log(e);
+              document.body.innerHTML = e.message;
+              sendLoaded(event);
+            });
+          } catch(e) {
+            console.log(e);
+            document.body.innerHTML = e.message;
+            sendLoaded(event);
+          }
+        }
+      })(axios, this, this.document);
+    </script>
+  </head>
+  <body></body>
+</html>

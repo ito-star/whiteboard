@@ -1,0 +1,306 @@
+@import "../theme/_theme.scss";
+
+.dashboard-button {
+  top: calc(100% - 80px) !important;
+  right: 8px;
+}
+
+tbody .MuiTableRow-root {
+  cursor: pointer;
+}
+
+thead.board-table-head,
+tbody.board-table-body {
+  .MuiTableCell-root {
+    padding: 0px 5px 0px 5px;
+  }
+}
+
+.pinned-boards {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
+  grid-gap: 1.5em;
+  background-color: rgb(235, 235, 235);
+  border-radius: 4px;
+}
+
+.boards {
+  margin-right: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
+  grid-gap: 1.5em;
+}
+
+.board-item {
+  &--info-icon {
+    margin-left: 5px;
+  }
+}
+
+.board-container {
+  padding: 1em;
+  display: inline-block;
+}
+
+.board-container .board {
+  transition: ease all 0.2s;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-shadow: none;
+  background-color: #fff;
+  border-radius: 4px;
+  //border: 1px solid lightgrey;
+  width: 300px;
+  max-height: 200px;
+  height: 200px;
+  color: $primary;
+  user-select: auto;
+
+  .status {
+    &-icon {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      margin: 10px;
+    }
+  }
+
+  .board-title {
+    color: rgba(0, 0, 0, 0.54);
+    font-family: $header-font;
+    font-size: 18px;
+    font-weight: bolder;
+    width: calc(100% - 52px);
+    display: flex;
+    margin: 10px;
+    align-items: center;
+
+    a {
+      color: inherit;
+      white-space: nowrap;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding-bottom: 0.25em;
+      display: block;
+
+      &:hover {
+        border-color: $primary;
+      }
+    }
+
+    &_lock-icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+.board-container .board:hover,
+.board-container .board.focus-visible {
+  .board-title {
+    color: $primary;
+    border-color: $primary;
+  }
+
+  cursor: pointer;
+  opacity: 0.9;
+  border-color: $primary;
+}
+
+.board-container .board .open-menu {
+  min-width: 34px;
+  min-height: 34px;
+
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  color: rgba(0, 0, 0, 0.54);
+  border-radius: 50%;
+  z-index: 1001;
+  padding: 0.2em;
+}
+
+.board-container .board .open-menu:hover {
+  transition: ease all 0.1s;
+  background-color: rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}
+
+// This needs to go to boardItem.scss
+.last-modified-notification {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 100%;
+}
+
+.add_button {
+  transform: scale(0.9);
+  position: fixed;
+  top: 4px;
+  right: 8px;
+  padding: 1em 1.3em 1em 1.3em;
+
+  z-index: 1001;
+  border-radius: 50%;
+  background-color: $primary;
+  color: lightgrey;
+  border: 1px solid $primary;
+  box-shadow: rgba(0, 0, 0, 0.25) 2px 2px 4px;
+}
+
+.add_button:hover {
+  background-color: transparent;
+  color: $primary;
+}
+
+.view_button:focus {
+  outline: 0;
+}
+
+.view_button:hover svg path {
+  fill: $primary;
+}
+
+.view_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  margin-left: 10px;
+
+  svg path {
+    fill: rgba(0, 0, 0, 0.54);
+  }
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+
+  .makeStyles-root-12 {
+    margin: 12px !important;
+    width: calc(100% - 24px) !important;
+  }
+}
+
+.dashboard-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 5px 0px;
+  background-color: #fff !important;
+
+  .add-board-button {
+    max-height: 43px;
+    margin-right: 12px;
+    margin-left: 24px;
+    white-space: nowrap;
+
+    i {
+      display: block;
+      font-size: 17px;
+      padding-left: 0px !important;
+      transform: translate(-6px, 0px);
+    }
+  }
+
+  #user-menu-button {
+    .user-avatar {
+      background-color: $primary;
+      color: #ffffff;
+    }
+
+    .expand-icon {
+      color: #000000;
+    }
+  }
+}
+
+.dashboard-nav-left {
+  display: flex;
+  align-items: center;
+
+  img {
+    transition: 0.1s ease all;
+    transform: translate(0, 4px);
+
+    &:active {
+      transform: scale(1.4) translate(0, 4px);
+    }
+  }
+
+  .archive-board-switch {
+    margin: 0px 0px 0px 10px;
+  }
+}
+
+.MuiTextField-root.search-input {
+  margin-left: 10px;
+}
+
+.MuiButton-root {
+  &.clear-status {
+    &_button {
+      background-color: #fff;
+      color: $primary;
+      border: 1px solid $primary;
+      height: 40px;
+      margin-left: 15px;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: #fff;
+        color: $primary;
+        border: 1px solid $primary;
+      }
+    }
+  }
+}
+
+.template-button {
+  background-color: #fff;
+  transition: ease all 0.1s;
+  font-family: $header-font;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid lightgrey;
+  width: 200px;
+  height: 120px;
+  border-radius: 4px;
+}
+
+.template-form {
+  display: grid !important;
+  grid: auto / auto auto !important;
+}
+
+.template-form-container {
+  overflow-y: scroll;
+  max-height: 350px;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.template-header {
+  font-family: $header-font;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 0px;
+  padding-bottom: 10px;
+}
+
+.selected {
+  border: 2px solid $primary;
+}

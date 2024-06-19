@@ -1,0 +1,23 @@
+# https://developers.google.com/search/reference/robots_txt
+User-agent: *
+Crawl-delay: 10
+Disallow: /
+# CSS, JS, Images
+Allow: /*.css$
+Allow: /*.css?
+Allow: /*.js$
+Allow: /*.js?
+Allow: /*.gif$
+Allow: /*.gif?
+Allow: /*.jpg$
+Allow: /*.jpg?
+Allow: /*.jpeg$
+Allow: /*.jpeg?
+Allow: /*.png$
+Allow: /*.png?
+Allow: /*.webp$
+Allow: /*.webp?
+# Paths
+Allow: /$
+Allow: /pricing$
+Allow: /readonlyboard/

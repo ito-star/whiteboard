@@ -1,0 +1,35 @@
+@import "../theme/_theme.scss";
+
+.dashboard-welcome-screen {
+  &-content {
+    margin-top: 220px;
+
+    &--header {
+      font-size: 204px;
+    }
+
+    &--sub {
+      font-size: 24px;
+      font-weight: 400;
+
+      &_link {
+        color: $primary;
+        font-weight: bold;
+      }
+    }
+
+    h1 {
+      font-family: $header-font;
+    }
+
+    text-align: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-welcome-screen {
+    &-content--header {
+      font-size: 114px;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "../theme/_theme.scss";
+
+.tos-page {
+  form {
+    background-color: transparent;
+  }
+  form header + div {
+    background-color: #fff;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  }
+
+  .margin-middle p {
+    margin-left: 0;
+    margin-right: 0;
+    color: initial;
+  }
+
+  ol li li {
+    list-style-type: lower-latin;
+  }
+
+  ol {
+    h2,
+    .h2 {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    h3,
+    .h3 {
+      font-size: 1rem;
+    }
+  }
+
+  .tos-body > ol {
+    margin-left: 0;
+    padding-left: 1rem;
+  }
+}
+
+.tos-page-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+  #user-menu-button {
+    .user-avatar {
+      background-color: $primary;
+      color: #ffffff;
+    }
+
+    .expand-icon {
+      color: #000000;
+    }
+  }
+}

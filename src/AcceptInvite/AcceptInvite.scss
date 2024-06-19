@@ -1,0 +1,11 @@
+@import "../theme/_theme.scss";
+
+.accept-invite {
+  &-container {
+    .firebaseui-idp-list {
+      .firebaseui-idp-button:not(.firebaseui-idp-password) {
+        display: none;
+      }
+    }
+  }
+}
